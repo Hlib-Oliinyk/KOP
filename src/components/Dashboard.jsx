@@ -2,7 +2,7 @@ import { useState } from 'react'
 import KpiCard from './KpiCard'
 import Counter from './Counter'
 import Toggle from './Toggle'
-import PokemonList from './List/PokemonList'
+import FilteredList from './FilteredList'
 import { POKEMONS, POKEMON_TYPES } from '../data/pokemons'
 import { getMostCommonType, getAverageHp } from '../utils/pokemonStats'
 
@@ -33,7 +33,7 @@ function Dashboard() {
       </section>
 
       <section>
-        <PokemonList pokemons={POKEMONS} types={POKEMON_TYPES} isNormal={isNormal} />
+        <FilteredList pokemons={POKEMONS} types={POKEMON_TYPES} isNormal={isNormal} />
       </section>
     </div>
   )

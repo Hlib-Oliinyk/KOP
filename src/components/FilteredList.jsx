@@ -4,7 +4,7 @@ import PokemonListItems from './PokemonListItems'
 
 const ALL_TYPES = 'Усі'
 
-function PokemonList({ pokemons, types, isNormal }) {
+function FilteredList({ pokemons, types, isNormal }) {
   const [selectedType, setSelectedType] = useState(ALL_TYPES)
 
   const filteredPokemons =
@@ -28,4 +28,4 @@ function PokemonList({ pokemons, types, isNormal }) {
   )
 }
 
-export default PokemonList
+export default FilteredList

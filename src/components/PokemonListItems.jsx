@@ -1,4 +1,4 @@
-import { metersToFeetInches, kgToLbs } from '../../utils/units'
+import { metersToFeetInches, kgToLbs } from '../utils/units'
 
 function PokemonListItems({ pokemons, isNormal }) {
   return (
