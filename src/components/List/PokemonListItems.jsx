@@ -1,4 +1,4 @@
-function PokemonList({ pokemons }) {
+function PokemonListItems({ pokemons }) {
   return (
     <>
       <ul className="pokemon-list">
@@ -21,4 +21,4 @@ function PokemonList({ pokemons }) {
   )
 }
 
-export default PokemonList
+export default PokemonListItems

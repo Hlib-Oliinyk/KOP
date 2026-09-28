@@ -1,4 +1,4 @@
-function TypeSelect({ types, selectedType, onSelectType, allLabel }) {
+function PokemonTypeSelect({ types, selectedType, onSelectType, allLabel }) {
   return (
     <select
       className="type-select"
@@ -15,4 +15,4 @@ function TypeSelect({ types, selectedType, onSelectType, allLabel }) {
   )
 }
 
-export default TypeSelect
+export default PokemonTypeSelect

@@ -1,7 +1,7 @@
 import KpiCard from './KpiCard'
 import Counter from './Counter'
 import Toggle from './Toggle'
-import FilteredList from './FilteredList'
+import PokemonList from './List/PokemonList'
 import { POKEMONS, POKEMON_TYPES } from '../data/pokemons'
 import { getMostCommonType, getAverageHp } from '../utils/pokemonStats'
 
@@ -30,7 +30,7 @@ function Dashboard() {
       </section>
 
       <section>
-        <FilteredList pokemons={POKEMONS} types={POKEMON_TYPES} />
+        <PokemonList pokemons={POKEMONS} types={POKEMON_TYPES} />
       </section>
     </div>
   )
