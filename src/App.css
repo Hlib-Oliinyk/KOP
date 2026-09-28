@@ -110,20 +110,10 @@
   cursor: pointer;
 }
 
-.unit-preview {
-  border-radius: 6px;
-  padding: 12px;
-  background: #f9fafb;
-  font-size: 13px;
-}
-
-.unit-preview p {
-  margin: 4px 0;
-}
-
-.unit-preview-name {
-  font-weight: 600;
-  font-size: 14px;
+.toggle-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .type-select {
@@ -152,8 +142,19 @@
   padding-bottom: 8px;
 }
 
+.pokemon-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .pokemon-name {
   font-size: 14px;
+}
+
+.pokemon-measurements {
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .empty-state {

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import KpiCard from './KpiCard'
 import Counter from './Counter'
 import Toggle from './Toggle'
@@ -6,6 +7,8 @@ import { POKEMONS, POKEMON_TYPES } from '../data/pokemons'
 import { getMostCommonType, getAverageHp } from '../utils/pokemonStats'
 
 function Dashboard() {
+  const [isNormal, setIsNormal] = useState(true)
+
   const totalPokemons = POKEMONS.length
   const totalTypes = POKEMON_TYPES.length
   const { type: topType, count: topTypeCount } = getMostCommonType(POKEMONS)
@@ -26,11 +29,11 @@ function Dashboard() {
 
       <section className="widgets-row">
         <Counter />
-        <Toggle pokemon={POKEMONS[0]} />
+        <Toggle isNormal={isNormal} onToggle={setIsNormal} />
       </section>
 
       <section>
-        <PokemonList pokemons={POKEMONS} types={POKEMON_TYPES} />
+        <PokemonList pokemons={POKEMONS} types={POKEMON_TYPES} isNormal={isNormal} />
       </section>
     </div>
   )
