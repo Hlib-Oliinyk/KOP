@@ -8,6 +8,10 @@ export function getMostCommonType(pokemons) {
   return { type, count }
 }
 
+export function getUniqueTypes(pokemons) {
+  return [...new Set(pokemons.flatMap((pokemon) => pokemon.types))].sort()
+}
+
 export function getAverageHp(pokemons) {
   const total = pokemons.reduce((sum, pokemon) => sum + pokemon.stats.hp, 0)
   return Math.round(total / pokemons.length)

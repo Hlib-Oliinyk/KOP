@@ -1,18 +1,36 @@
 import { useState } from 'react'
-import KpiCard from './KpiCard'
+import { usePokemons } from '../hooks/usePokemons'
+import { getUniqueTypes } from '../utils/pokemonStats'
 import Counter from './Counter'
 import Toggle from './Toggle'
+import PokemonKpis from './PokemonKpis'
+import PokemonTable from './PokemonTable'
 import FilteredList from './FilteredList'
-import { POKEMONS, POKEMON_TYPES } from '../data/pokemons'
-import { getMostCommonType, getAverageHp } from '../utils/pokemonStats'
+import LoadingState from './LoadingState'
+import ErrorState from './ErrorState'
+import EmptyState from './EmptyState'
 
 function Dashboard() {
+  const { pokemons, isLoading, error, reload } = usePokemons()
   const [isNormal, setIsNormal] = useState(true)
 
-  const totalPokemons = POKEMONS.length
-  const totalTypes = POKEMON_TYPES.length
-  const { type: topType, count: topTypeCount } = getMostCommonType(POKEMONS)
-  const avgHp = getAverageHp(POKEMONS)
+  const renderPokemonData = () => {
+    if (isLoading) return <LoadingState />
+    if (error) return <ErrorState message={error} onRetry={reload} />
+    if (pokemons.length === 0) return <EmptyState />
+
+    return (
+      <>
+        <PokemonKpis pokemons={pokemons} />
+        <section className="dashboard-section">
+          <PokemonTable pokemons={pokemons} isNormal={isNormal} />
+        </section>
+        <section className="dashboard-section">
+          <FilteredList pokemons={pokemons} types={getUniqueTypes(pokemons)} isNormal={isNormal} />
+        </section>
+      </>
+    )
+  }
 
   return (
     <div className="dashboard">
@@ -20,21 +38,12 @@ function Dashboard() {
         <h1>Pokemon Dashboard</h1>
       </header>
 
-      <section className="kpi-row">
-        <KpiCard title="Усього покемонів" value={totalPokemons} change="перші 12 з PokeAPI" changeType="neutral" />
-        <KpiCard title="Кількість типів" value={totalTypes} change="серед вибірки" changeType="neutral" />
-        <KpiCard title={`Тип: ${topType}`} value={topTypeCount} change="покемонів цього типу" changeType="up" />
-        <KpiCard title="Середній HP" value={avgHp} change="серед 12 покемонів" changeType="neutral" />
-      </section>
-
       <section className="widgets-row">
         <Counter />
         <Toggle isNormal={isNormal} onToggle={setIsNormal} />
       </section>
 
-      <section>
-        <FilteredList pokemons={POKEMONS} types={POKEMON_TYPES} isNormal={isNormal} />
-      </section>
+      {renderPokemonData()}
     </div>
   )
 }
