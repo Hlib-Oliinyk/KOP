@@ -261,8 +261,11 @@
 
 .pokemon-table {
   width: 100%;
+  min-width: 640px;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .pokemon-table th,
@@ -271,6 +274,33 @@
   text-align: left;
   border-bottom: 1px solid #f3f4f6;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pokemon-table th:nth-child(1) {
+  width: 8%;
+}
+
+.pokemon-table th:nth-child(2) {
+  width: 20%;
+}
+
+.pokemon-table th:nth-child(3) {
+  width: 22%;
+}
+
+.pokemon-table th:nth-child(4) {
+  width: 10%;
+}
+
+.pokemon-table th:nth-child(5) {
+  width: 12%;
+}
+
+.pokemon-table th:nth-child(6),
+.pokemon-table th:nth-child(7) {
+  width: 14%;
 }
 
 .pokemon-table th {
@@ -286,6 +316,24 @@
 
 .sortable-header:hover {
   color: #1f2937;
+}
+
+.sort-arrow {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  vertical-align: middle;
+}
+
+.sort-arrow--asc {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+.sort-arrow--desc {
+  transform: translateY(-2px) rotate(45deg);
 }
 
 .status-card {
