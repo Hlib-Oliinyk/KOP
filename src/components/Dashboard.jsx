@@ -3,33 +3,24 @@ import { usePokemons } from '../hooks/usePokemons'
 import { getUniqueTypes } from '../utils/pokemonStats'
 import Counter from './Counter'
 import Toggle from './Toggle'
-import PokemonKpis from './PokemonKpis'
-import PokemonTable from './PokemonTable'
-import FilteredList from './FilteredList'
-import LoadingState from './LoadingState'
-import ErrorState from './ErrorState'
-import EmptyState from './EmptyState'
+import PokemonKpis from './kpi/PokemonKpis'
+import PokemonTable from './table/PokemonTable'
+import FilteredList from './list/FilteredList'
+import LoadingState from './status/LoadingState'
+import ErrorState from './status/ErrorState'
+import EmptyState from './status/EmptyState'
 
 function Dashboard() {
-  const { pokemons, isLoading, error, reload } = usePokemons()
+  const { pokemons, status, error, reload } = usePokemons()
   const [isNormal, setIsNormal] = useState(true)
 
-  const renderPokemonData = () => {
-    if (isLoading) return <LoadingState />
-    if (error) return <ErrorState message={error} onRetry={reload} />
-    if (pokemons.length === 0) return <EmptyState />
+  const hasData = status === 'success'
 
-    return (
-      <>
-        <PokemonKpis pokemons={pokemons} />
-        <section className="dashboard-section">
-          <PokemonTable pokemons={pokemons} isNormal={isNormal} />
-        </section>
-        <section className="dashboard-section">
-          <FilteredList pokemons={pokemons} types={getUniqueTypes(pokemons)} isNormal={isNormal} />
-        </section>
-      </>
-    )
+  const renderStatus = () => {
+    if (status === 'loading') return <LoadingState />
+    if (status === 'error') return <ErrorState message={error} onRetry={reload} />
+    if (status === 'empty') return <EmptyState />
+    return null
   }
 
   return (
@@ -38,12 +29,24 @@ function Dashboard() {
         <h1>Pokemon Dashboard</h1>
       </header>
 
+      {renderStatus()}
+      {hasData && <PokemonKpis pokemons={pokemons} />}
+
       <section className="widgets-row">
         <Counter />
         <Toggle isNormal={isNormal} onToggle={setIsNormal} />
       </section>
 
-      {renderPokemonData()}
+      {hasData && (
+        <>
+          <section className="dashboard-section">
+            <PokemonTable pokemons={pokemons} isNormal={isNormal} />
+          </section>
+          <section className="dashboard-section">
+            <FilteredList pokemons={pokemons} types={getUniqueTypes(pokemons)} isNormal={isNormal} />
+          </section>
+        </>
+      )}
     </div>
   )
 }

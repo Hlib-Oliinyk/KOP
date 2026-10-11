@@ -34,7 +34,7 @@ async function fetchPokemon(id) {
   const response = await fetch(`${BASE_URL}/pokemon/${id}`)
 
   if (!response.ok) {
-    throw new Error(`Не вдалося завантажити покемона #${id} (статус ${response.status})`)
+    throw new Error(`Не вдалося завантажити покемона №${id} (статус ${response.status})`)
   }
 
   const data = await response.json()

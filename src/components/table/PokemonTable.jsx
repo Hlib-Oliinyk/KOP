@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import SortableHeader from './SortableHeader'
-import PokemonTableRow from './PokemonTableRow'
-import { sortPokemons } from '../utils/sortPokemons'
+import { sortPokemons } from '../../utils/sortPokemons'
+import { metersToFeetInches, kgToLbs } from '../../utils/units'
 
 function PokemonTable({ pokemons, isNormal }) {
-  const [sortField, setSortField] = useState('name')
+  const [sortField, setSortField] = useState('id')
   const [sortDirection, setSortDirection] = useState('asc')
 
   const sortedPokemons = sortPokemons(pokemons, sortField, sortDirection)
@@ -27,7 +27,7 @@ function PokemonTable({ pokemons, isNormal }) {
         <table className="pokemon-table">
           <thead>
             <tr>
-              <SortableHeader label="#" field="id" {...sortProps} />
+              <SortableHeader label="№" field="id" {...sortProps} />
               <SortableHeader label="Ім'я" field="name" {...sortProps} />
               <th>Типи</th>
               <SortableHeader label="HP" field="hp" {...sortProps} />
@@ -38,7 +38,23 @@ function PokemonTable({ pokemons, isNormal }) {
           </thead>
           <tbody>
             {sortedPokemons.map((pokemon) => (
-              <PokemonTableRow key={pokemon.id} pokemon={pokemon} isNormal={isNormal} />
+              <tr key={pokemon.id}>
+                <td>{pokemon.id}</td>
+                <td>{pokemon.name}</td>
+                <td>
+                  <span className="type-badges">
+                    {pokemon.types.map((type) => (
+                      <span key={type} className={`type-badge type-badge--${type.toLowerCase()}`}>
+                        {type}
+                      </span>
+                    ))}
+                  </span>
+                </td>
+                <td>{pokemon.stats.hp}</td>
+                <td>{pokemon.stats.attack}</td>
+                <td>{isNormal ? `${pokemon.height} м` : metersToFeetInches(pokemon.height)}</td>
+                <td>{isNormal ? `${pokemon.weight} кг` : `${kgToLbs(pokemon.weight)} lbs`}</td>
+              </tr>
             ))}
           </tbody>
         </table>

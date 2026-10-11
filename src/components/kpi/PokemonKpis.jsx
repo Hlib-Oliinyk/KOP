@@ -1,5 +1,5 @@
 import KpiCard from './KpiCard'
-import { getMostCommonType, getAverageHp, getUniqueTypes } from '../utils/pokemonStats'
+import { getMostCommonType, getAverageHp, getUniqueTypes } from '../../utils/pokemonStats'
 
 function PokemonKpis({ pokemons }) {
   const totalPokemons = pokemons.length

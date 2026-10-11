@@ -5,7 +5,7 @@ const POKEMON_COUNT = 12
 
 export function usePokemons() {
   const [pokemons, setPokemons] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [status, setStatus] = useState('loading')
   const [error, setError] = useState(null)
   const [reloadKey, setReloadKey] = useState(0)
 
@@ -14,13 +14,14 @@ export function usePokemons() {
 
     fetchPokemons(POKEMON_COUNT)
       .then((result) => {
-        if (isActive) setPokemons(result)
+        if (!isActive) return
+        setPokemons(result)
+        setStatus(result.length === 0 ? 'empty' : 'success')
       })
       .catch((err) => {
-        if (isActive) setError(err.message)
-      })
-      .finally(() => {
-        if (isActive) setIsLoading(false)
+        if (!isActive) return
+        setError(err.message)
+        setStatus('error')
       })
 
     return () => {
@@ -29,10 +30,10 @@ export function usePokemons() {
   }, [reloadKey])
 
   const reload = () => {
-    setIsLoading(true)
+    setStatus('loading')
     setError(null)
     setReloadKey((key) => key + 1)
   }
 
-  return { pokemons, isLoading, error, reload }
+  return { pokemons, status, error, reload }
 }
