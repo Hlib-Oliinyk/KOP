@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import SortableHeader from './SortableHeader'
+import PokemonTableRows from './PokemonTableRows'
 import { sortPokemons } from '../../utils/sortPokemons'
-import { metersToFeetInches, kgToLbs } from '../../utils/units'
 
 function PokemonTable({ pokemons, isNormal }) {
   const [sortField, setSortField] = useState('id')
@@ -36,27 +36,7 @@ function PokemonTable({ pokemons, isNormal }) {
               <SortableHeader label="Вага" field="weight" {...sortProps} />
             </tr>
           </thead>
-          <tbody>
-            {sortedPokemons.map((pokemon) => (
-              <tr key={pokemon.id}>
-                <td>{pokemon.id}</td>
-                <td>{pokemon.name}</td>
-                <td>
-                  <span className="type-badges">
-                    {pokemon.types.map((type) => (
-                      <span key={type} className={`type-badge type-badge--${type.toLowerCase()}`}>
-                        {type}
-                      </span>
-                    ))}
-                  </span>
-                </td>
-                <td>{pokemon.stats.hp}</td>
-                <td>{pokemon.stats.attack}</td>
-                <td>{isNormal ? `${pokemon.height} м` : metersToFeetInches(pokemon.height)}</td>
-                <td>{isNormal ? `${pokemon.weight} кг` : `${kgToLbs(pokemon.weight)} lbs`}</td>
-              </tr>
-            ))}
-          </tbody>
+          <PokemonTableRows pokemons={sortedPokemons} isNormal={isNormal} />
         </table>
       </div>
     </div>
