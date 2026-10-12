@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { fetchPokemons } from '../api/pokemonApi'
+import { fetchPokemons } from '../api/fetchPokemons'
 
 const POKEMON_COUNT = 12
 

@@ -1,5 +1,3 @@
-const BASE_URL = 'https://pokeapi.co/api/v2'
-
 function capitalize(text) {
   return text
     .split('-')
@@ -11,7 +9,7 @@ function getBaseStat(stats, name) {
   return stats.find((item) => item.stat.name === name).base_stat
 }
 
-function normalizePokemon(data) {
+export function normalizePokemon(data) {
   return {
     id: data.id,
     name: capitalize(data.name),
@@ -28,20 +26,4 @@ function normalizePokemon(data) {
       .sort((a, b) => a.slot - b.slot)
       .map((item) => capitalize(item.ability.name)),
   }
-}
-
-async function fetchPokemon(id) {
-  const response = await fetch(`${BASE_URL}/pokemon/${id}`)
-
-  if (!response.ok) {
-    throw new Error(`Не вдалося завантажити покемона №${id} (статус ${response.status})`)
-  }
-
-  const data = await response.json()
-  return normalizePokemon(data)
-}
-
-export function fetchPokemons(count) {
-  const ids = Array.from({ length: count }, (_, index) => index + 1)
-  return Promise.all(ids.map(fetchPokemon))
 }
