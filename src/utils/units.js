@@ -8,3 +8,11 @@ export function metersToFeetInches(meters) {
 export function kgToLbs(kg) {
   return Math.round(kg * 2.20462 * 10) / 10
 }
+
+export function formatHeight(meters, isNormal) {
+  return isNormal ? `${meters} м` : metersToFeetInches(meters)
+}
+
+export function formatWeight(kg, isNormal) {
+  return isNormal ? `${kg} кг` : `${kgToLbs(kg)} lbs`
+}

@@ -1,4 +1,5 @@
-import { metersToFeetInches, kgToLbs } from '../../utils/units'
+import TypeBadges from '../pokemon/TypeBadges'
+import { formatHeight, formatWeight } from '../../utils/units'
 
 function PokemonTableRows({ pokemons, isNormal }) {
   return (
@@ -8,18 +9,12 @@ function PokemonTableRows({ pokemons, isNormal }) {
           <td>{pokemon.id}</td>
           <td>{pokemon.name}</td>
           <td>
-            <span className="type-badges">
-              {pokemon.types.map((type) => (
-                <span key={type} className={`type-badge type-badge--${type.toLowerCase()}`}>
-                  {type}
-                </span>
-              ))}
-            </span>
+            <TypeBadges types={pokemon.types} />
           </td>
           <td>{pokemon.stats.hp}</td>
           <td>{pokemon.stats.attack}</td>
-          <td>{isNormal ? `${pokemon.height} м` : metersToFeetInches(pokemon.height)}</td>
-          <td>{isNormal ? `${pokemon.weight} кг` : `${kgToLbs(pokemon.weight)} lbs`}</td>
+          <td>{formatHeight(pokemon.height, isNormal)}</td>
+          <td>{formatWeight(pokemon.weight, isNormal)}</td>
         </tr>
       ))}
     </tbody>

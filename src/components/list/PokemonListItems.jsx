@@ -1,4 +1,5 @@
-import { metersToFeetInches, kgToLbs } from '../../utils/units'
+import TypeBadges from '../pokemon/TypeBadges'
+import { formatHeight, formatWeight } from '../../utils/units'
 
 function PokemonListItems({ pokemons, isNormal }) {
   return (
@@ -9,18 +10,12 @@ function PokemonListItems({ pokemons, isNormal }) {
             <div className="pokemon-info">
               <span className="pokemon-name">{pokemon.name}</span>
               <span className="pokemon-measurements">
-                {isNormal ? `${pokemon.height} м` : metersToFeetInches(pokemon.height)}
+                {formatHeight(pokemon.height, isNormal)}
                 {' · '}
-                {isNormal ? `${pokemon.weight} кг` : `${kgToLbs(pokemon.weight)} lbs`}
+                {formatWeight(pokemon.weight, isNormal)}
               </span>
             </div>
-            <span className="type-badges">
-              {pokemon.types.map((type) => (
-                <span key={type} className={`type-badge type-badge--${type.toLowerCase()}`}>
-                  {type}
-                </span>
-              ))}
-            </span>
+            <TypeBadges types={pokemon.types} />
           </li>
         ))}
       </ul>
