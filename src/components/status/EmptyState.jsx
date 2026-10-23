@@ -1,7 +1,7 @@
-function EmptyState() {
+function EmptyState({ message = 'Даних немає' }) {
   return (
     <div className="status-card">
-      <p>Даних немає</p>
+      <p>{message}</p>
     </div>
   )
 }

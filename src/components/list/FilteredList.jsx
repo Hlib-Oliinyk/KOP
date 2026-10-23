@@ -7,10 +7,12 @@ const ALL_TYPES = 'Усі'
 function FilteredList({ pokemons, types, isNormal }) {
   const [selectedType, setSelectedType] = useState(ALL_TYPES)
 
+  const activeType = types.includes(selectedType) ? selectedType : ALL_TYPES
+
   const filteredPokemons =
-    selectedType === ALL_TYPES
+    activeType === ALL_TYPES
       ? pokemons
-      : pokemons.filter((pokemon) => pokemon.types.includes(selectedType))
+      : pokemons.filter((pokemon) => pokemon.types.includes(activeType))
 
   return (
     <div className="widget-card">
@@ -18,7 +20,7 @@ function FilteredList({ pokemons, types, isNormal }) {
 
       <PokemonTypeSelect
         types={types}
-        selectedType={selectedType}
+        selectedType={activeType}
         onSelectType={setSelectedType}
         allLabel={ALL_TYPES}
       />

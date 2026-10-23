@@ -1,9 +1,4 @@
-function capitalize(text) {
-  return text
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ')
-}
+import { capitalize } from '../utils/text'
 
 function getBaseStat(stats, name) {
   return stats.find((item) => item.stat.name === name).base_stat

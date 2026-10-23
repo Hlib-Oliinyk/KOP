@@ -9,7 +9,7 @@ function PokemonKpis({ pokemons }) {
 
   return (
     <section className="kpi-row">
-      <KpiCard title="Усього покемонів" value={totalPokemons} change="завантажено з PokeAPI" changeType="neutral" />
+      <KpiCard title="Усього покемонів" value={totalPokemons} change="за поточними фільтрами" changeType="neutral" />
       <KpiCard title="Кількість типів" value={totalTypes} change="серед вибірки" changeType="neutral" />
       <KpiCard title={`Тип: ${topType}`} value={topTypeCount} change="покемонів цього типу" changeType="up" />
       <KpiCard title="Середній HP" value={avgHp} change={`серед ${totalPokemons} покемонів`} changeType="neutral" />

@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
-// fetcher(params, { signal }) must be stable, and params must keep its identity until it changes.
 export function useFetch(fetcher, params) {
   const [attempt, setAttempt] = useState(0)
   const request = useMemo(() => ({ params, attempt }), [params, attempt])
@@ -20,7 +19,7 @@ export function useFetch(fetcher, params) {
     return () => controller.abort()
   }, [fetcher, request])
 
-  const refetch = useCallback(() => setAttempt((count) => count + 1), [])
+  const refetch = () => setAttempt((count) => count + 1)
   const loading = result.request !== request
 
   return {
