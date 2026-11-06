@@ -1,5 +1,13 @@
 const BASE_URL = 'https://pokeapi.co/api/v2'
 
+export class ApiError extends Error {
+  constructor(message, status) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
 async function request(url, signal) {
   try {
     return await fetch(url, { signal })
@@ -12,7 +20,10 @@ export async function fetchJson(path, signal) {
   const response = await request(`${BASE_URL}${path}`, signal)
 
   if (!response.ok) {
-    throw new Error(`Не вдалося завантажити дані з PokeAPI (статус ${response.status})`)
+    throw new ApiError(
+      `Не вдалося завантажити дані з PokeAPI (статус ${response.status})`,
+      response.status,
+    )
   }
 
   return response.json()
