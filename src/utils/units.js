@@ -1,7 +1,7 @@
 export function metersToFeetInches(meters) {
-  const totalInches = meters * 39.3701
+  const totalInches = Math.round(meters * 39.3701)
   const feet = Math.floor(totalInches / 12)
-  const inches = Math.round(totalInches % 12)
+  const inches = totalInches % 12
   return `${feet}'${inches}"`
 }
 
