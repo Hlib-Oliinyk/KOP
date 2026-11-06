@@ -1,14 +1,21 @@
+import { Link } from 'react-router'
 import TypeBadges from '../pokemon/TypeBadges'
+import { useUnits } from '../../hooks/useUnits'
 import { formatHeight, formatWeight } from '../../utils/units'
+import { getPokemonPath } from '../../routes/paths'
 
-function PokemonListItems({ pokemons, isNormal }) {
+function PokemonListItems({ pokemons }) {
+  const { isNormal } = useUnits()
+
   return (
     <>
       <ul className="pokemon-list">
         {pokemons.map((pokemon) => (
           <li key={pokemon.id}>
             <div className="pokemon-info">
-              <span className="pokemon-name">{pokemon.name}</span>
+              <Link to={getPokemonPath(pokemon.id)} className="pokemon-name pokemon-link">
+                {pokemon.name}
+              </Link>
               <span className="pokemon-measurements">
                 {formatHeight(pokemon.height, isNormal)}
                 {' · '}

@@ -4,7 +4,7 @@ import PokemonListItems from './PokemonListItems'
 
 const ALL_TYPES = 'Усі'
 
-function FilteredList({ pokemons, types, isNormal }) {
+function FilteredList({ pokemons, types }) {
   const [selectedType, setSelectedType] = useState(ALL_TYPES)
 
   const activeType = types.includes(selectedType) ? selectedType : ALL_TYPES
@@ -25,7 +25,7 @@ function FilteredList({ pokemons, types, isNormal }) {
         allLabel={ALL_TYPES}
       />
 
-      <PokemonListItems pokemons={filteredPokemons} isNormal={isNormal} />
+      <PokemonListItems pokemons={filteredPokemons} />
     </div>
   )
 }
