@@ -4,9 +4,7 @@ import { ThemeContext } from './ThemeContext'
 const STORAGE_KEY = 'theme'
 
 function getInitialTheme() {
-  const savedTheme = localStorage.getItem(STORAGE_KEY)
-  if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return localStorage.getItem(STORAGE_KEY) === 'dark' ? 'dark' : 'light'
 }
 
 function ThemeProvider({ children }) {

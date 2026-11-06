@@ -1,8 +1,8 @@
-function LoadingState() {
+function LoadingState({ message = 'Завантаження покемонів...' }) {
   return (
     <div className="status-card">
       <div className="spinner" />
-      <p>Завантаження покемонів...</p>
+      <p>{message}</p>
     </div>
   )
 }

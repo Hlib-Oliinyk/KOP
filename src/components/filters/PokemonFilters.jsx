@@ -2,13 +2,16 @@ import { Controller } from 'react-hook-form'
 import TextField from '../form/TextField'
 import SelectField from '../form/SelectField'
 import { LIMIT_OPTIONS } from '../../constants/filters'
+import { useFilters } from '../../hooks/useFilters'
 import { capitalize } from '../../utils/text'
 
 const ALL_TYPES_OPTION = { value: '', label: 'Усі типи' }
 
 const limitOptions = LIMIT_OPTIONS.map((limit) => ({ value: limit, label: `${limit} покемонів` }))
 
-function PokemonFilters({ control, types, typesError, isDirty, onReset }) {
+function PokemonFilters({ types, typesError }) {
+  const { control, isDirty, resetFilters } = useFilters()
+
   const typeOptions = [
     ALL_TYPES_OPTION,
     ...(types ?? []).map((type) => ({ value: type, label: capitalize(type) })),
@@ -61,7 +64,7 @@ function PokemonFilters({ control, types, typesError, isDirty, onReset }) {
 
       {typesError && <p className="form-hint form-hint--error">Не вдалося завантажити список типів</p>}
 
-      <button type="button" className="reset-button" onClick={onReset} disabled={!isDirty}>
+      <button type="button" className="reset-button" onClick={resetFilters} disabled={!isDirty}>
         Скинути фільтри
       </button>
     </form>

@@ -3,7 +3,7 @@ import SortableHeader from './SortableHeader'
 import PokemonTableRows from './PokemonTableRows'
 import { sortPokemons } from '../../utils/sortPokemons'
 
-function PokemonTable({ pokemons, isNormal }) {
+function PokemonTable({ pokemons }) {
   const [sortField, setSortField] = useState('id')
   const [sortDirection, setSortDirection] = useState('asc')
 
@@ -36,7 +36,7 @@ function PokemonTable({ pokemons, isNormal }) {
               <SortableHeader label="Вага" field="weight" {...sortProps} />
             </tr>
           </thead>
-          <PokemonTableRows pokemons={sortedPokemons} isNormal={isNormal} />
+          <PokemonTableRows pokemons={sortedPokemons} />
         </table>
       </div>
     </div>
