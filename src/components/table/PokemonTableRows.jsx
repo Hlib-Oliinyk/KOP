@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router'
+import { useSelector } from 'react-redux'
 import TypeBadges from '../pokemon/TypeBadges'
-import { useUnits } from '../../hooks/useUnits'
+import { selectIsNormal } from '../../store/settingsSlice'
 import { formatHeight, formatWeight } from '../../utils/units'
 import { getPokemonPath } from '../../routes/paths'
 
 function PokemonTableRows({ pokemons }) {
-  const { isNormal } = useUnits()
+  const isNormal = useSelector(selectIsNormal)
   const navigate = useNavigate()
 
   const handleRowClick = (event, id) => {

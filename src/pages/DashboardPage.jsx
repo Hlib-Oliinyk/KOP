@@ -1,8 +1,7 @@
-import { useFetch } from '../hooks/useFetch'
+import { useSelector } from 'react-redux'
 import { useDebounce } from '../hooks/useDebounce'
-import { useFilters } from '../hooks/useFilters'
-import { fetchPokemons } from '../api/fetchPokemons'
-import { fetchPokemonTypes } from '../api/fetchPokemonTypes'
+import { selectFilters } from '../store/filtersSlice'
+import { useGetPokemonsQuery } from '../store/pokeApi'
 import { getUniqueTypes } from '../utils/pokemonStats'
 import Counter from '../components/Counter'
 import Toggle from '../components/Toggle'
@@ -17,18 +16,18 @@ import EmptyState from '../components/status/EmptyState'
 const FILTERS_DEBOUNCE_MS = 400
 
 function DashboardPage() {
-  const { filters } = useFilters()
+  const filters = useSelector(selectFilters)
   const debouncedFilters = useDebounce(filters, FILTERS_DEBOUNCE_MS)
-  const { data: pokemons, loading, error, refetch } = useFetch(fetchPokemons, debouncedFilters)
-  const { data: types, error: typesError } = useFetch(fetchPokemonTypes)
+  const { data, isFetching, isError, error, refetch } = useGetPokemonsQuery(debouncedFilters)
 
+  const pokemons = isError ? undefined : data
   const hasData = Boolean(pokemons?.length)
-  const isUpdating = loading || filters !== debouncedFilters
+  const isUpdating = isFetching || filters !== debouncedFilters
   const resultsClassName = isUpdating ? 'results results--updating' : 'results'
 
   const renderStatus = () => {
-    if (error) return <ErrorState message={error.message} onRetry={refetch} />
-    if (loading && !hasData) return <LoadingState />
+    if (isError) return <ErrorState message={error.message} onRetry={refetch} />
+    if (isFetching && !hasData) return <LoadingState />
     if (!hasData) return <EmptyState message="Нічого не знайдено за цими фільтрами" />
     return null
   }
@@ -49,7 +48,7 @@ function DashboardPage() {
         <Toggle />
       </section>
 
-      <PokemonFilters types={types} typesError={typesError} />
+      <PokemonFilters />
 
       {renderStatus()}
       {hasData && (

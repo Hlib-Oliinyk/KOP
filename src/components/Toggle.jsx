@@ -1,7 +1,9 @@
-import { useUnits } from '../hooks/useUnits'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsNormal, setIsNormal } from '../store/settingsSlice'
 
 function Toggle() {
-  const { isNormal, setIsNormal } = useUnits()
+  const isNormal = useSelector(selectIsNormal)
+  const dispatch = useDispatch()
 
   return (
     <div className="widget-card">
@@ -10,7 +12,7 @@ function Toggle() {
         <input
           type="checkbox"
           checked={isNormal}
-          onChange={(event) => setIsNormal(event.target.checked)}
+          onChange={(event) => dispatch(setIsNormal(event.target.checked))}
         />
         {isNormal ? 'м / кг' : 'ft / lbs'}
       </label>

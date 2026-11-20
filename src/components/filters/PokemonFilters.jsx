@@ -1,16 +1,27 @@
-import { Controller } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import TextField from '../form/TextField'
 import SelectField from '../form/SelectField'
 import { LIMIT_OPTIONS } from '../../constants/filters'
-import { useFilters } from '../../hooks/useFilters'
+import {
+  resetFilters,
+  selectFilters,
+  selectIsFiltersDirty,
+  setLimit,
+  setSearch,
+  setType,
+} from '../../store/filtersSlice'
+import { useGetPokemonTypesQuery } from '../../store/pokeApi'
 import { capitalize } from '../../utils/text'
 
 const ALL_TYPES_OPTION = { value: '', label: 'Усі типи' }
 
 const limitOptions = LIMIT_OPTIONS.map((limit) => ({ value: limit, label: `${limit} покемонів` }))
 
-function PokemonFilters({ types, typesError }) {
-  const { control, isDirty, resetFilters } = useFilters()
+function PokemonFilters() {
+  const filters = useSelector(selectFilters)
+  const isDirty = useSelector(selectIsFiltersDirty)
+  const dispatch = useDispatch()
+  const { data: types, isError: typesError } = useGetPokemonTypesQuery()
 
   const typeOptions = [
     ALL_TYPES_OPTION,
@@ -22,49 +33,36 @@ function PokemonFilters({ types, typesError }) {
       <h3>Пошук і фільтри</h3>
 
       <div className="filters-fields">
-        <Controller
-          name="search"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              label="Назва"
-              type="search"
-              placeholder="Напр. pika"
-              value={field.value}
-              onChange={field.onChange}
-            />
-          )}
+        <TextField
+          label="Назва"
+          type="search"
+          placeholder="Напр. pika"
+          value={filters.search}
+          onChange={(value) => dispatch(setSearch(value))}
         />
-        <Controller
-          name="type"
-          control={control}
-          render={({ field }) => (
-            <SelectField
-              label="Тип"
-              options={typeOptions}
-              value={field.value}
-              onChange={field.onChange}
-              disabled={!types}
-            />
-          )}
+        <SelectField
+          label="Тип"
+          options={typeOptions}
+          value={filters.type}
+          onChange={(value) => dispatch(setType(value))}
+          disabled={!types}
         />
-        <Controller
-          name="limit"
-          control={control}
-          render={({ field }) => (
-            <SelectField
-              label="Кількість"
-              options={limitOptions}
-              value={field.value}
-              onChange={(value) => field.onChange(Number(value))}
-            />
-          )}
+        <SelectField
+          label="Кількість"
+          options={limitOptions}
+          value={filters.limit}
+          onChange={(value) => dispatch(setLimit(Number(value)))}
         />
       </div>
 
       {typesError && <p className="form-hint form-hint--error">Не вдалося завантажити список типів</p>}
 
-      <button type="button" className="reset-button" onClick={resetFilters} disabled={!isDirty}>
+      <button
+        type="button"
+        className="reset-button"
+        onClick={() => dispatch(resetFilters())}
+        disabled={!isDirty}
+      >
         Скинути фільтри
       </button>
     </form>

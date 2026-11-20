@@ -1,11 +1,12 @@
 import { Link } from 'react-router'
+import { useSelector } from 'react-redux'
 import TypeBadges from '../pokemon/TypeBadges'
-import { useUnits } from '../../hooks/useUnits'
+import { selectIsNormal } from '../../store/settingsSlice'
 import { formatHeight, formatWeight } from '../../utils/units'
 import { getPokemonPath } from '../../routes/paths'
 
 function PokemonListItems({ pokemons }) {
-  const { isNormal } = useUnits()
+  const isNormal = useSelector(selectIsNormal)
 
   return (
     <>

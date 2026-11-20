@@ -1,8 +1,11 @@
 import { Link, Outlet, ScrollRestoration } from 'react-router'
 import ThemeToggle from './ThemeToggle'
 import { HOME_PATH } from '../../routes/paths'
+import { useDocumentTheme } from '../../hooks/useDocumentTheme'
 
 function AppLayout() {
+  useDocumentTheme()
+
   return (
     <>
       <header className="app-header">
