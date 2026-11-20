@@ -1,6 +1,7 @@
 export const STORAGE_KEYS = {
   theme: 'pokedash:theme',
   favorites: 'pokedash:favorites',
+  chartTypes: 'pokedash:chart-types',
 }
 
 export function readStorage(key, fallback) {

@@ -8,6 +8,7 @@ import Toggle from '../components/Toggle'
 import PokemonFilters from '../components/filters/PokemonFilters'
 import FavoritesPanel from '../components/favorites/FavoritesPanel'
 import PokemonKpis from '../components/kpi/PokemonKpis'
+import PokemonCharts from '../components/charts/PokemonCharts'
 import PokemonTable from '../components/table/PokemonTable'
 import FilteredList from '../components/list/FilteredList'
 import LoadingState from '../components/status/LoadingState'
@@ -55,6 +56,9 @@ function DashboardPage() {
       {renderStatus()}
       {hasData && (
         <div className={resultsClassName} aria-busy={isUpdating}>
+          <section className="dashboard-section">
+            <PokemonCharts pokemons={pokemons} />
+          </section>
           <section className="dashboard-section">
             <PokemonTable pokemons={pokemons} />
           </section>

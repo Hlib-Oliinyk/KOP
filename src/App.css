@@ -859,3 +859,75 @@
 .favorite-item-name {
   font-weight: 600;
 }
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 12px;
+}
+
+.chart-widget {
+  min-width: 0;
+}
+
+.chart-description {
+  margin: -4px 0 12px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.chart-type-switch {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--color-control-border);
+  border-radius: 8px;
+  background: var(--color-control-bg);
+}
+
+.chart-type-button {
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chart-type-button:hover {
+  color: var(--color-text);
+}
+
+.chart-type-button--active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+}
+
+.chart-type-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+}
+
+.chart {
+  font-size: 12px;
+}
+
+.chart .recharts-cartesian-axis-tick-value,
+.chart .recharts-pie-label-text {
+  fill: var(--color-text-muted);
+}
+
+.chart .recharts-cartesian-axis-line,
+.chart .recharts-cartesian-grid line {
+  stroke: var(--color-border);
+}
+
+.chart .recharts-tooltip-cursor {
+  fill: var(--color-row-hover);
+  stroke: var(--color-border);
+}
+
+.chart .recharts-pie-sector path {
+  stroke: var(--color-surface);
+}
