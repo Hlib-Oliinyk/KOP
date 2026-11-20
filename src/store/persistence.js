@@ -1,7 +1,11 @@
 import { STORAGE_KEYS, writeStorage } from './storage'
 import { selectTheme } from './settingsSlice'
+import { selectFavorites } from './favoritesSlice'
 
-const PERSISTED_VALUES = [{ key: STORAGE_KEYS.theme, select: selectTheme }]
+const PERSISTED_VALUES = [
+  { key: STORAGE_KEYS.theme, select: selectTheme },
+  { key: STORAGE_KEYS.favorites, select: selectFavorites },
+]
 
 export function persistState(store) {
   let previousState = store.getState()

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import TypeBadges from '../pokemon/TypeBadges'
+import FavoriteButton from '../favorites/FavoriteButton'
 import { selectIsNormal } from '../../store/settingsSlice'
 import { formatHeight, formatWeight } from '../../utils/units'
 import { getPokemonPath } from '../../routes/paths'
@@ -10,7 +11,7 @@ function PokemonTableRows({ pokemons }) {
   const navigate = useNavigate()
 
   const handleRowClick = (event, id) => {
-    if (event.target.closest('a')) return
+    if (event.target.closest('a, button')) return
     navigate(getPokemonPath(id))
   }
 
@@ -18,6 +19,9 @@ function PokemonTableRows({ pokemons }) {
     <tbody>
       {pokemons.map((pokemon) => (
         <tr key={pokemon.id} className="clickable-row" onClick={(event) => handleRowClick(event, pokemon.id)}>
+          <td className="favorite-cell">
+            <FavoriteButton pokemon={pokemon} />
+          </td>
           <td>{pokemon.id}</td>
           <td>
             <Link to={getPokemonPath(pokemon.id)} className="pokemon-link">

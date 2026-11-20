@@ -19,6 +19,7 @@
   --color-stat-track: #e5e7eb;
   --color-rarity: #b45309;
   --color-rarity-bg: #fef3c7;
+  --color-favorite: #f59e0b;
 }
 
 :root[data-theme='dark'] {
@@ -42,6 +43,7 @@
   --color-stat-track: #374151;
   --color-rarity: #fcd34d;
   --color-rarity-bg: #78350f;
+  --color-favorite: #fbbf24;
 }
 
 * {

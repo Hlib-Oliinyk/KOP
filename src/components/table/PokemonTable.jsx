@@ -27,6 +27,9 @@ function PokemonTable({ pokemons }) {
         <table className="pokemon-table">
           <thead>
             <tr>
+              <th className="favorite-cell">
+                <span className="visually-hidden">Обране</span>
+              </th>
               <SortableHeader label="№" field="id" {...sortProps} />
               <SortableHeader label="Ім'я" field="name" {...sortProps} />
               <th>Типи</th>

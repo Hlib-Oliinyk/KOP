@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { useSelector } from 'react-redux'
 import TypeBadges from '../pokemon/TypeBadges'
+import FavoriteButton from '../favorites/FavoriteButton'
 import { selectIsNormal } from '../../store/settingsSlice'
 import { formatHeight, formatWeight } from '../../utils/units'
 import { getPokemonPath } from '../../routes/paths'
@@ -23,7 +24,10 @@ function PokemonListItems({ pokemons }) {
                 {formatWeight(pokemon.weight, isNormal)}
               </span>
             </div>
-            <TypeBadges types={pokemon.types} />
+            <div className="pokemon-list-actions">
+              <TypeBadges types={pokemon.types} />
+              <FavoriteButton pokemon={pokemon} />
+            </div>
           </li>
         ))}
       </ul>

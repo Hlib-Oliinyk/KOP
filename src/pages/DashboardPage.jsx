@@ -6,6 +6,7 @@ import { getUniqueTypes } from '../utils/pokemonStats'
 import Counter from '../components/Counter'
 import Toggle from '../components/Toggle'
 import PokemonFilters from '../components/filters/PokemonFilters'
+import FavoritesPanel from '../components/favorites/FavoritesPanel'
 import PokemonKpis from '../components/kpi/PokemonKpis'
 import PokemonTable from '../components/table/PokemonTable'
 import FilteredList from '../components/list/FilteredList'
@@ -49,6 +50,7 @@ function DashboardPage() {
       </section>
 
       <PokemonFilters />
+      <FavoritesPanel />
 
       {renderStatus()}
       {hasData && (

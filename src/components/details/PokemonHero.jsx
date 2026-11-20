@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import TypeBadges from '../pokemon/TypeBadges'
+import FavoriteButton from '../favorites/FavoriteButton'
 import { selectIsNormal } from '../../store/settingsSlice'
 import { formatHeight, formatWeight } from '../../utils/units'
 
@@ -17,7 +18,10 @@ function PokemonHero({ pokemon }) {
       {pokemon.image && <img className="pokemon-hero-image" src={pokemon.image} alt={pokemon.name} />}
 
       <div className="pokemon-hero-info">
-        <p className="pokemon-number">#{String(pokemon.id).padStart(4, '0')}</p>
+        <div className="pokemon-hero-top">
+          <p className="pokemon-number">#{String(pokemon.id).padStart(4, '0')}</p>
+          <FavoriteButton pokemon={pokemon} withLabel />
+        </div>
         <h1 className="pokemon-hero-name">{pokemon.name}</h1>
         {pokemon.genus && <p className="pokemon-genus">{pokemon.genus}</p>}
 
